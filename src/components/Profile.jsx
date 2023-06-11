@@ -3,8 +3,9 @@ import axios from "axios";
 
 const Profile = ({ username }) => {
   const [profile, setProfile] = useState(null);
-  console.log("🚀 ~ file: Profile.jsx:6 ~ Profile ~ profile:", profile);
   const [error, setError] = useState(null);
+  const [repos, setRepos] = useState([]);
+  console.log("🚀 ~ file: Profile.jsx:8 ~ Profile ~ repos:", repos);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -12,13 +13,11 @@ const Profile = ({ username }) => {
         const headers = {
           Authorization: `Bearer ${process.env.REACT_APP_GITHUB_ACCESS_TOKEN}`,
         };
-        console.log("🚀 ~ file: Profile.jsx:15 ~ fetchProfile ~ headers:", headers)
 
         const response = await axios.get(
-          `https://api.github.com/users/${username}`,
-          { headers }
+          `https://api.github.com/users/${username}`
+          // { headers }
         );
-        console.log("🚀 ~ file: Profile.jsx:21 ~ fetchProfile ~ response:", response)
 
         if (response.status === 404) {
           setError("User not found");
@@ -26,6 +25,12 @@ const Profile = ({ username }) => {
         }
 
         setProfile(response.data);
+
+        const reposResponse = await axios.get(response.data.repos_url, {
+          // headers,
+        });
+
+        setRepos(reposResponse.data);
       } catch (error) {
         setError("An error occurred");
       }
@@ -43,63 +48,82 @@ const Profile = ({ username }) => {
   }
 
   return (
-    <div className="text-[#ffff] text-2xl h-full flex w-full justify-between">
-      <div className="w-full flex  justify-center items-center ">
-        <img
-          src={profile.avatar_url}
-          alt=""
-          className="rounded-full w-[250px] h-[250px] "
-        />
-      </div>
-      <div className="w-full ">
-        <div className="flex flex-col justify-center items-start h-full">
-          {profile.name ? (
-            <>
-              <h2>
-                <span className="text-[18px] font-bold">Name </span>
-                <span className="font-medium text-[16px] text-[#7d8590]">
-                  {profile.name}
+    <div className={`${repos.length > 1 ? "h-full pt-[100px]" : "h-screen pt-[100px]"}`}>
+      <div className="text-[#ffff] text-2xl  flex w-full justify-between">
+        <div className="flex items-center justify-center w-full ">
+          <img
+            src={profile.avatar_url}
+            alt=""
+            className="rounded-full w-[250px] h-[250px] "
+          />
+        </div>
+        <div className="w-full ">
+          <div className="flex flex-col items-start justify-center h-full">
+            {profile.name ? (
+              <>
+                <h2>
+                  <span className="text-[18px] font-bold">Name </span>
+                  <span className="font-medium text-[14px] text-[#7d8590]">
+                    {profile.name}
+                  </span>
+                </h2>
+              </>
+            ) : (
+              <>
+                <h2>
+                  <span className="text-[18px] font-bold">Name </span>
+                  <span className="font-medium text-[14px] text-[#7d8590]">
+                    {profile.login}
+                  </span>
+                </h2>
+              </>
+            )}
+            {profile.bio && (
+              <p>
+                <span className="text-[18px] font-bold">Bio </span>
+                <span className="font-medium text-[14px] text-[#7d8590]">
+                  {profile.bio}
                 </span>
-              </h2>
-            </>
-          ) : (
-            <>
-              <h2>
-                <span className="text-[18px] font-bold">Name </span>
-                <span className="font-medium text-[16px] text-[#7d8590]">
-                  {profile.login}
-                </span>
-              </h2>
-            </>
-          )}
-          {profile.bio && (
-            <p>
-              <span className="text-[18px] font-bold">Bio </span>
-              <span className="font-medium text-[16px] text-[#7d8590]">
-                {profile.bio}
+              </p>
+            )}
+            <p className="flex items-center justify-center gap-1">
+              <span className="text-[18px] font-bold">Followers </span>
+              <span className="font-medium text-[14px] text-[#7d8590]">
+                {profile.followers}
               </span>
             </p>
-          )}
-          <p className="flex items-center gap-1 justify-center">
-            <span className="text-[18px] font-bold">Followers </span>
-            <span className="font-medium text-[16px] text-[#7d8590]">
-              {profile.followers}
-            </span>
-          </p>
-          <p className="flex items-center gap-1 justify-center">
-            <span className="text-[18px] font-bold">Following </span>
-            <span className="font-medium text-[16px] text-[#7d8590]">
-              {profile.following}
-            </span>
-          </p>
-          <p>
-            <span className="text-[18px] font-bold">Github Profile </span>
-            <span className="font-medium text-[16px] text-[#7d8590] cursor-pointer">
-              <a href={profile.html_url} target="_blank" rel="noreferrer">
-                {profile.html_url}
-              </a>
-            </span>
-          </p>
+            <p className="flex items-center justify-center gap-1">
+              <span className="text-[18px] font-bold">Following </span>
+              <span className="font-medium text-[14px] text-[#7d8590]">
+                {profile.following}
+              </span>
+            </p>
+            <p>
+              <span className="text-[18px] font-bold">Github Profile </span>
+              <span className="font-medium text-[14px] text-[#7d8590] cursor-pointer hover:text-[#0ea5e9]">
+                <a href={profile.html_url} target="_blank" rel="noreferrer">
+                  {profile.html_url}
+                </a>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-[1220px] mx-auto w-full pt-32">
+        <span className="text-[18px] font-bold text-[#ffff]">
+          Github Profile
+        </span>
+        <div className="h-[400px]  flex gap-4 flex-col  flex-wrap pt-4">
+          {repos.map((repo) => (
+            <div key={repo.id} className="">
+              <p className="font-medium text-[14px] text-[#7d8590] cursor-pointer hover:text-[#0ea5e9]">
+                <a href={repo.clone_url} target="_blank" rel="noreferrer">
+                  {repo.name}
+                </a>
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -19,23 +19,23 @@ export const Search = () => {
   return (
     <>
       <Header />
-      <div className=" flex flex-col justify-center items-center h-screen  bg-[#0d1117] ">
+      <div className=" flex flex-col   bg-[#0d1117] ">
         {showProfile ? (
           <>
             <Profile username={username} />
           </>
         ) : (
-          <div className="flex flex-col px-4">
+          <div className="flex flex-col justify-center h-screen px-4 items- ">
             <h1 className="md:text-[64px] text-[30px] font-bold text-center ">
               <span className="text-[#ffffff]">Github Profile</span>
-              <span className="textG px-1">Viewer</span>
+              <span className="px-1 textG">Viewer</span>
             </h1>
             <p className="font-medium text-[14px]  md:text-[16px] text-[#7d8590] pb-6 max-w-[750px] w-full mx-auto text-center">
               Discover GitHub Users easily. Start your <br /> search now and
               embark on an exciting GitHub journey.
             </p>
             <form onSubmit={handleSubmit}>
-              <div className=" gap-3 flex ">
+              <div className="flex justify-center gap-3">
                 <input
                   type="text"
                   placeholder="@github_username"
@@ -45,14 +45,13 @@ export const Search = () => {
                 />
                 <button
                   type="submit"
-                  className="text-[#0d1117] gradient-text bg-[#ffffff] md:max-w-[230px] max-w-[130px] w-full h-[40px] md:h-[60px] rounded-md md:rounded-lg p-3 font-bold text-[14px] md:text-[20px] transition-all duration-500 
- "
+                  className="text-[#0d1117] gradient-text bg-[#ffffff] md:max-w-[230px] max-w-[130px] w-full h-[40px] md:h-[60px] rounded-md md:rounded-lg p-3 font-bold text-[14px] md:text-[20px] transition-all duration-500 "
                 >
                   Show Profile
                 </button>
               </div>
             </form>
-            <p className="text-rose-500 pt-2">{error}</p>
+            <p className="pt-2 text-rose-500">{error}</p>
           </div>
         )}
       </div>
