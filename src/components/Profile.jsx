@@ -48,8 +48,8 @@ const Profile = ({ username }) => {
   }
 
   return (
-    <div className={`${repos.length > 1 ? "h-full pt-[100px]" : "h-screen pt-[100px]"}`}>
-      <div className="text-[#ffff] text-2xl  flex w-full justify-between">
+    <div className={`${repos.length > 1 ? "h-full md:pt-[100px] pt-[70px]" : "h-screen pt-[100px]"}`}>
+      <div className="text-[#ffff] text-2xl  flex md:flex-row flex-col w-full justify-between px-10 md:px-0">
         <div className="flex items-center justify-center w-full ">
           <img
             src={profile.avatar_url}
@@ -57,7 +57,7 @@ const Profile = ({ username }) => {
             className="rounded-full w-[250px] h-[250px] "
           />
         </div>
-        <div className="w-full ">
+        <div className="w-full pt-5 md:pt-0 ">
           <div className="flex flex-col items-start justify-center h-full">
             {profile.name ? (
               <>
@@ -110,11 +110,11 @@ const Profile = ({ username }) => {
         </div>
       </div>
 
-      <div className="max-w-[1220px] mx-auto w-full pt-32">
+      <div className="max-w-[1220px] mx-auto w-full md:pt-32 pt-16 px-10 md:px-0">
         <span className="text-[18px] font-bold text-[#ffff]">
           Github Profile
         </span>
-        <div className="h-[400px]  flex gap-4 flex-col  flex-wrap pt-4">
+        <div className="md:h-[400px] h-full  flex gap-4 flex-col  flex-wrap pt-4 pb-10">
           {repos.map((repo) => (
             <div key={repo.id} className="">
               <p className="font-medium text-[14px] text-[#7d8590] cursor-pointer hover:text-[#0ea5e9]">
