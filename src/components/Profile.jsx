@@ -12,11 +12,13 @@ const Profile = ({ username }) => {
         const headers = {
           Authorization: `Bearer ${process.env.REACT_APP_GITHUB_ACCESS_TOKEN}`,
         };
+        console.log("🚀 ~ file: Profile.jsx:15 ~ fetchProfile ~ headers:", headers)
 
         const response = await axios.get(
           `https://api.github.com/users/${username}`,
           { headers }
         );
+        console.log("🚀 ~ file: Profile.jsx:21 ~ fetchProfile ~ response:", response)
 
         if (response.status === 404) {
           setError("User not found");

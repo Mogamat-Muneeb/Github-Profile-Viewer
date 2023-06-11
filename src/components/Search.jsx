@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Profile from "./Profile";
 import { Header } from "./Header";
-import { toast } from "react-toastify";
-import { config } from "../components/config/index";
 export const Search = () => {
   const [username, setUsername] = useState("");
   const [showProfile, setShowProfile] = useState(false);
@@ -47,7 +45,8 @@ export const Search = () => {
                 />
                 <button
                   type="submit"
-                  className="text-[#0d1117] bg-[#ffffff] md:max-w-[230px] max-w-[130px] w-full h-[40px] md:h-[60px] rounded-md md:rounded-lg p-3 font-bold text-[14px] md:text-[20px] transition-all duration-500  hover:bg-gradient-to-br hover:to-[#efceff] hover:via-[#9773ff] hover:text-white hover:from-[#0ea5e9] bg-size-200 bg-right-bottom "
+                  className="text-[#0d1117] gradient-text bg-[#ffffff] md:max-w-[230px] max-w-[130px] w-full h-[40px] md:h-[60px] rounded-md md:rounded-lg p-3 font-bold text-[14px] md:text-[20px] transition-all duration-500 
+ "
                 >
                   Show Profile
                 </button>

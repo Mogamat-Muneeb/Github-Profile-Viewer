@@ -33,3 +33,9 @@ input[type=text]:focus {
   border: 2px solid transparent;
   border-radius: 8px;
 }
+
+.gradient-text:hover{
+  background: linear-gradient(260deg, #0ea5e9 0%, #9773ff 50%, #efceff 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
