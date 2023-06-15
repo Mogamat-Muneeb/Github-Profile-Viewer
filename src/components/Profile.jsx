@@ -3,9 +3,9 @@ import axios from "axios";
 
 const Profile = ({ username }) => {
   const [profile, setProfile] = useState(null);
+  console.log("🚀 ~ file: Profile.jsx:6 ~ Profile ~ profile:", profile)
   const [error, setError] = useState(null);
   const [repos, setRepos] = useState([]);
-  console.log("🚀 ~ file: Profile.jsx:8 ~ Profile ~ repos:", repos);
 
   useEffect(() => {
     const fetchProfile = async () => {
